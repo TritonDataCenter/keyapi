@@ -1,6 +1,6 @@
 {
-  "name": "boilerplateapi",
-  "description": "SmartDataCenter Boilerplate API",
+  "name": "clortho",
+  "description": "SmartDataCenter token API",
   "version": "1.0.0",
   "author": "Joyent (joyent.com)",
   "private": true,
