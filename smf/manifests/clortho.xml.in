@@ -8,7 +8,7 @@
  -->
 
 <service_bundle type="manifest" name="smartdc-ca-castashsvc">
-<service name="smartdc/application/bapi" type="service" version="1">
+<service name="smartdc/application/clortho" type="service" version="1">
 
 <dependency name="network" grouping="require_all" restart_on="error" type="service">
 	<service_fmri value="svc:/network/physical" />
@@ -21,7 +21,11 @@
 <exec_method type="method" name="stop" exec=":kill" timeout_seconds="30" />
 
 <instance name="default" enabled="true" />
-
+<property_group name='config' >
+  <propval name='port' type='astring' value='8080'/>
+	<propval name='keyfile' type='astring' value='@@PREFIX@@/keyfile'/>
+  <propval name='latestkey' type='astring' value='latest'/>
+</property_group>
 <stability value='Unstable' />
 
 <template>

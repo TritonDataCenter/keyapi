@@ -29,7 +29,7 @@ JSL_FILES_NODE   = $(JS_FILES)
 JSSTYLE_FILES	 = $(JS_FILES)
 JSSTYLE_FLAGS    = -o indent=4,doxygen,unparenthesized-return=0
 REPO_MODULES	 = src/node-dummy
-SMF_MANIFESTS_IN = smf/manifests/bapi.xml.in
+SMF_MANIFESTS_IN = smf/manifests/clortho.xml.in
 
 
 NODE_PREBUILT_VERSION=v0.6.19
