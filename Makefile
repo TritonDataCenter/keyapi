@@ -28,7 +28,7 @@ JSL_CONF_NODE	 = tools/jsl.node.conf
 JSL_FILES_NODE   = $(JS_FILES)
 JSSTYLE_FILES	 = $(JS_FILES)
 JSSTYLE_FLAGS    = -o indent=4,doxygen,unparenthesized-return=0
-REPO_MODULES	 = src/node-dummy
+#REPO_MODULES	 = src/node-dummy
 SMF_MANIFESTS_IN = smf/manifests/clortho.xml.in
 
 
@@ -41,6 +41,9 @@ include ./tools/mk/Makefile.node_prebuilt.defs
 include ./tools/mk/Makefile.node_deps.defs
 include ./tools/mk/Makefile.smf.defs
 
+ROOT            := $(shell pwd)
+RELEASE_TARBALL := clortho-pkg-$(STAMP).tar.bz2
+TMPDIR				  := /tmp/$(STAMP)
 #
 # Repo-specific targets
 #
@@ -52,6 +55,35 @@ $(TAP): | $(NPM_EXEC)
 	$(NPM) install
 
 CLEAN_FILES += $(TAP) ./node_modules/tap
+
+.PHONY: release
+release: all deps docs $(SMF_MANIFESTS)
+	@echo "Building $(RELEASE_TARBALL)"
+	@mkdir -p $(TMPDIR)/root/opt/smartdc/clortho/build
+	@mkdir -p $(TMPDIR)/site
+	@touch $(TMPDIR)/site/.do-not-delete-me
+	cp -PR $(NODE_INSTALL) $(TMPDIR)/root/opt/smartdc/clortho/build/node
+	cp -r $(ROOT)/lib \
+	    $(ROOT)/server.js \
+	    $(ROOT)/Makefile \
+	    $(ROOT)/node_modules \
+	    $(ROOT)/package.json \
+	    $(ROOT)/smf \
+	    $(ROOT)/tools \
+	    $(TMPDIR)/root/opt/smartdc/clortho/
+	(cd $(TMPDIR) && $(TAR) -jcf $(ROOT)/$(RELEASE_TARBALL) root site)
+	@rm -rf $(TMPDIR)
+
+
+.PHONY: publish
+publish: release
+	@if [[ -z "$(BITS_DIR)" ]]; then \
+	    echo "error: 'BITS_DIR' must be set for 'publish' target"; \
+	    exit 1; \
+	  fi
+	mkdir -p $(BITS_DIR)/clortho
+	cp $(ROOT)/$(RELEASE_TARBALL) $(BITS_DIR)/clortho/$(RELEASE_TARBALL)
+
 
 .PHONY: test
 test: $(TAP)
