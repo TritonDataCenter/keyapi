@@ -20,12 +20,13 @@
 <exec_method type="method" name="start" exec="@@NODE@@ @@PREFIX@@/server.js &amp;" timeout_seconds="30" />
 <exec_method type="method" name="stop" exec=":kill" timeout_seconds="30" />
 
-<instance name="default" enabled="true" />
 <property_group name='config' >
-  <propval name='port' type='astring' value='8080'/>
+	<propval name='port' type='astring' value='8080'/>
 	<propval name='keyfile' type='astring' value='@@PREFIX@@/keyfile'/>
-  <propval name='latestkey' type='astring' value='latest'/>
+	<propval name='latestkey' type='astring' value='latest'/>
 </property_group>
+
+<instance name="default" enabled="true" />
 <stability value='Unstable' />
 
 <template>
