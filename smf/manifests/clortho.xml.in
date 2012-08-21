@@ -20,7 +20,7 @@
 <exec_method type="method" name="start" exec="@@NODE@@ @@PREFIX@@/server.js &amp;" timeout_seconds="30" />
 <exec_method type="method" name="stop" exec=":kill" timeout_seconds="30" />
 
-<property_group name='config' >
+<property_group name='config' type='application'>
 	<propval name='port' type='astring' value='8080'/>
 	<propval name='keyfile' type='astring' value='@@PREFIX@@/keyfile'/>
 	<propval name='latestkey' type='astring' value='latest'/>

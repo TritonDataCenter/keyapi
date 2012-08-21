@@ -19,23 +19,23 @@ async.series([
       var svcprop = child_process.spawn('svcprop', ['-p', 'config/port', 'clortho']);
       svcprop.on('data', function(data) {
         port = Number(data);
-				cb();
-      }
+        cb();
+      });
     },
     function(cb) {
       var svcprop = child_process.spawn('svcprop', ['-p', 'config/keyfile', 'clortho']);
       svcprop.on('data', function(data) {
         keyfile = data;
-				cb();
-      }
-		},
-		function(cb) {
+        cb();
+      });
+    },
+    function(cb) {
       var svcprop = child_process.spawn('svcprop', ['-p', 'config/latestkey', 'clortho']);
       svcprop.on('data', function(data) {
         latestkey = data;
-				cb();
-      }
-		},
+        cb();
+      });
+    },
     main(cb)
 ]);
 
