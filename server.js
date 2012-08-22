@@ -8,6 +8,7 @@ var restify = require('restify');
 var Logger = require('bunyan');
 var crypt = require('./lib/index')
 var async = require('async');
+var child_process = require('child_process');
 
 // config metadata
 var port;
@@ -16,27 +17,30 @@ var latestkey;
 
 async.series([
     function(cb) {
-      var svcprop = child_process.spawn('svcprop', ['-p', 'config/port', 'clortho']);
-      svcprop.on('data', function(data) {
-        port = Number(data);
+      var svcprop = child_process.exec('svcprop -p config/port clortho',
+        function(err, stdout, stderr) {
+        port = Number(stdout);
         cb();
       });
     },
     function(cb) {
-      var svcprop = child_process.spawn('svcprop', ['-p', 'config/keyfile', 'clortho']);
-      svcprop.on('data', function(data) {
-        keyfile = data;
+      var svcprop = child_process.exec('svcprop -p config/keyfile clortho',
+        function(err, stdout, stderr) {
+        keyfile = stdout.trim();
         cb();
       });
     },
     function(cb) {
-      var svcprop = child_process.spawn('svcprop', ['-p', 'config/latestkey', 'clortho']);
-      svcprop.on('data', function(data) {
-        latestkey = data;
+      var svcprop = child_process.exec('svcprop -p config/latestkey clortho',
+        function(err, stdout, stderr) {
+        latestkey = stdout.trim();
         cb();
       });
     },
-    main(cb)
+    function(cb) {
+      main()
+      cb();
+    }
 ]);
 
 var main = function(cb) {
@@ -92,5 +96,5 @@ var main = function(cb) {
   server.listen(port, function () {
       log.info({url: server.url}, '%s listening', server.name);
   });
-  cb();
 }
+
