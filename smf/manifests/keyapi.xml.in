@@ -7,8 +7,8 @@
 	whereever this package gets installed.
  -->
 
-<service_bundle type="manifest" name="smartdc-ca-castashsvc">
-<service name="smartdc/application/clortho" type="service" version="1">
+<service_bundle type="manifest" name="smartdc-keyapi">
+<service name="smartdc/application/keyapi" type="service" version="1">
 
 <dependency name="network" grouping="require_all" restart_on="error" type="service">
 	<service_fmri value="svc:/network/physical" />
@@ -30,7 +30,7 @@
 <stability value='Unstable' />
 
 <template>
-	<common_name><loctext xml:lang="C">Joyent Boilerplate Service</loctext></common_name>
+	<common_name><loctext xml:lang="C">Joyent Key Token API</loctext></common_name>
 </template>
 
 </service>

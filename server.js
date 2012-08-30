@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2012, Joyent, Inc. All rights reserved.
  *
- * Main entry-point for the Clortho API.
+ * Main entry-point for the Key API.
  */
 
 var restify = require('restify');
@@ -17,21 +17,21 @@ var latestkey;
 
 async.series([
     function(cb) {
-      var svcprop = child_process.exec('svcprop -p config/port clortho',
+      var svcprop = child_process.exec('svcprop -p config/port keyapi',
         function(err, stdout, stderr) {
         port = Number(stdout);
         cb();
       });
     },
     function(cb) {
-      var svcprop = child_process.exec('svcprop -p config/keyfile clortho',
+      var svcprop = child_process.exec('svcprop -p config/keyfile keyapi',
         function(err, stdout, stderr) {
         keyfile = stdout.trim();
         cb();
       });
     },
     function(cb) {
-      var svcprop = child_process.exec('svcprop -p config/latestkey clortho',
+      var svcprop = child_process.exec('svcprop -p config/latestkey keyapi',
         function(err, stdout, stderr) {
         latestkey = stdout.trim();
         cb();
@@ -47,7 +47,7 @@ var main = function(cb) {
   var tokenizer = new crypt({keyfile:keyfile, "latestkey": latestkey});
 
   var log = new Logger({
-      name: 'clortho',
+      name: 'keyapi',
       level: 'debug',
       serializers: {
           err: Logger.stdSerializers.err,
@@ -58,7 +58,7 @@ var main = function(cb) {
 
 
   var server = restify.createServer({
-      name: 'Clortho',
+      name: 'KeyAPI',
       log: log
   });
   server.use(restify.bodyParser({ mapParams: false }));

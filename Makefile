@@ -29,7 +29,7 @@ JSL_FILES_NODE   = $(JS_FILES)
 JSSTYLE_FILES	 = $(JS_FILES)
 JSSTYLE_FLAGS    = -o indent=4,doxygen,unparenthesized-return=0
 #REPO_MODULES	 = src/node-dummy
-SMF_MANIFESTS_IN = smf/manifests/clortho.xml.in
+SMF_MANIFESTS_IN = smf/manifests/keyapi.xml.in
 
 
 NODE_PREBUILT_VERSION=v0.6.19
@@ -42,7 +42,7 @@ include ./tools/mk/Makefile.node_deps.defs
 include ./tools/mk/Makefile.smf.defs
 
 ROOT            := $(shell pwd)
-RELEASE_TARBALL := clortho-pkg-$(STAMP).tar.bz2
+RELEASE_TARBALL := keyapi-pkg-$(STAMP).tar.bz2
 TMPDIR				  := /tmp/$(STAMP)
 #
 # Repo-specific targets
@@ -59,10 +59,10 @@ CLEAN_FILES += $(TAP) ./node_modules/tap
 .PHONY: release
 release: all deps docs $(SMF_MANIFESTS)
 	@echo "Building $(RELEASE_TARBALL)"
-	@mkdir -p $(TMPDIR)/root/opt/smartdc/clortho/build
+	@mkdir -p $(TMPDIR)/root/opt/smartdc/keyapi/build
 	@mkdir -p $(TMPDIR)/site
 	@touch $(TMPDIR)/site/.do-not-delete-me
-	cp -PR $(NODE_INSTALL) $(TMPDIR)/root/opt/smartdc/clortho/build/node
+	cp -PR $(NODE_INSTALL) $(TMPDIR)/root/opt/smartdc/keyapi/build/node
 	cp -r $(ROOT)/lib \
 	    $(ROOT)/server.js \
 	    $(ROOT)/Makefile \
@@ -70,7 +70,7 @@ release: all deps docs $(SMF_MANIFESTS)
 	    $(ROOT)/package.json \
 	    $(ROOT)/smf \
 	    $(ROOT)/tools \
-	    $(TMPDIR)/root/opt/smartdc/clortho/
+	    $(TMPDIR)/root/opt/smartdc/keyapi/
 	(cd $(TMPDIR) && $(TAR) -jcf $(ROOT)/$(RELEASE_TARBALL) root site)
 	@rm -rf $(TMPDIR)
 
@@ -81,8 +81,8 @@ publish: release
 	    echo "error: 'BITS_DIR' must be set for 'publish' target"; \
 	    exit 1; \
 	  fi
-	mkdir -p $(BITS_DIR)/clortho
-	cp $(ROOT)/$(RELEASE_TARBALL) $(BITS_DIR)/clortho/$(RELEASE_TARBALL)
+	mkdir -p $(BITS_DIR)/keyapi
+	cp $(ROOT)/$(RELEASE_TARBALL) $(BITS_DIR)/keyapi/$(RELEASE_TARBALL)
 
 
 .PHONY: test
