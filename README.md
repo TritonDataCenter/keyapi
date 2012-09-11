@@ -1,22 +1,16 @@
-# Joyent Engineering Guide
+# KeyAPI
 
-Repository: <git@git.joyent.com:eng.git>
-Browsing: <https://mo.joyent.com/eng>
-Who: Trent Mick, Dave Pacheco
-Docs: <https://mo.joyent.com/docs/eng>
+Repository: <git@github.com:joyent-smartdatacenter/keyapi.git>
+Browsing: <https://mo.joyent.com/keyapi>
+Who: John Sonnenschein
+Docs: <https://mo.joyent.com/docs/keyapi>
 Tickets/bugs: <https://devhub.joyent.com/jira/browse/TOOLS>
 
 
 # Overview
 
-This repo serves two purposes: (1) It defines the guidelines and best
-practices for Joyent engineering work (this is the primary goal), and (2) it
-also provides boilerplate for an SDC project repo, giving you a starting
-point for many of the suggestion practices defined in the guidelines. This is
-especially true for node.js-based REST API projects.
-
-Start with the guidelines: <https://mo.joyent.com/docs/eng>
-
+KeyAPI provides a mechanism for SDC to securely pass information in and out
+of the system 
 
 # Repository
 
@@ -38,10 +32,10 @@ Start with the guidelines: <https://mo.joyent.com/docs/eng>
 
 # Development
 
-To run the boilerplate API server:
+To run the KeyAPI server:
 
-    git clone git@git.joyent.com:eng.git
-    cd eng
+    git clone git@github.com:joyent-smartdatacenter/keyapi.git
+    cd keyapi
     git submodule update --init
     make all
     node server.js
@@ -58,22 +52,16 @@ review.
 
     make test
 
-If you project has setup steps necessary for testing, then describe those
-here.
+# Using KeyAPI
 
+## POST: /token
 
-# Starting a Repo Based on eng.git
+As "Content-Type: application/json", POST a json object to the /token endpoint
 
-Create a new repo called "some-cool-fish" in your "~/work" dir based on "eng.git":
-Note: run this inside the eng dir.
+will return a tokenized json object with the "data" and "hash" fields set
 
-    ./tools/mkrepo $HOME/work/some-cool-fish
+## POST: /detoken
 
+As "Content-Type: application/json", POST a token object to /detoken
 
-# Your Other Sections Here
-
-Add other sections to your README as necessary. E.g. Running a demo, adding
-development data.
-
-
-
+returns a JSON object, the contents of the token
