@@ -32,7 +32,7 @@ JSSTYLE_FLAGS    = -o indent=4,doxygen,unparenthesized-return=0
 SMF_MANIFESTS_IN = smf/manifests/keyapi.xml.in
 
 
-NODE_PREBUILT_VERSION=v0.6.19
+NODE_PREBUILT_VERSION=v0.8.17
 NODE_PREBUILT_TAG=zone
 
 
