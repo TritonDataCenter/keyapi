@@ -6,45 +6,15 @@
 
 var restify = require('restify');
 var Logger = require('bunyan');
-var crypt = require('./lib/index')
+var crypt = require('./lib/crypt')
 var async = require('async');
 var child_process = require('child_process');
+var fs = require('fs');
 
-// config metadata
-var port;
-var keyfile;
-var latestkey;
+var Config = JSON.parse(fs.readFileSync('/opt/smartdc/keyapi/config.json'));
 
-async.series([
-    function(cb) {
-      var svcprop = child_process.exec('svcprop -p config/port keyapi',
-        function(err, stdout, stderr) {
-        port = Number(stdout);
-        cb();
-      });
-    },
-    function(cb) {
-      var svcprop = child_process.exec('svcprop -p config/keyfile keyapi',
-        function(err, stdout, stderr) {
-        keyfile = stdout.trim();
-        cb();
-      });
-    },
-    function(cb) {
-      var svcprop = child_process.exec('svcprop -p config/latestkey keyapi',
-        function(err, stdout, stderr) {
-        latestkey = stdout.trim();
-        cb();
-      });
-    },
-    function(cb) {
-      main()
-      cb();
-    }
-]);
-
-var main = function(cb) {
-  var tokenizer = new crypt({keyfile:keyfile, "latestkey": latestkey});
+function main () {
+  var tokenizer = new crypt({keyfile:Config.keyfile});
 
   var log = new Logger({
       name: 'keyapi',
@@ -93,8 +63,9 @@ var main = function(cb) {
   });
 
 
-  server.listen(port, function () {
+  server.listen(Config.port, function () {
       log.info({url: server.url}, '%s listening', server.name);
   });
 }
 
+main();
