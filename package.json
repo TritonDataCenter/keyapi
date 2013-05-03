@@ -9,7 +9,11 @@
     "node-uuid": "1.3.3",
     "filed": "0.0.5",
     "bunyan": "0.8.0",
-    "async": "0.1.22"
+    "async": "0.1.22",
+    "ldapjs": "0.6.3",
+    "assert-plus":"0.1.2",
+    "sprintf": "0.1.1",
+    "sdc-clients": "git+ssh://git@git.joyent.com:node-sdc-clients.git"
   },
   "devDependencies": {
     "tap": "0.2"

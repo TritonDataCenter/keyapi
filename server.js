@@ -1,20 +1,25 @@
 /*
- * Copyright (c) 2012, Joyent, Inc. All rights reserved.
+ * Copyright (c) 2013, Joyent, Inc. All rights reserved.
  *
  * Main entry-point for the Key API.
  */
 
 var restify = require('restify');
 var Logger = require('bunyan');
-var crypt = require('./lib/crypt')
 var async = require('async');
 var child_process = require('child_process');
 var fs = require('fs');
 
-var Config = JSON.parse(fs.readFileSync('/opt/smartdc/keyapi/config.json'));
+var crypt = require('./lib/crypt');
+var kc = require('./lib/keycache');
+
 
 function main () {
-  var tokenizer = new crypt({keyfile:Config.keyfile});
+  var Config = JSON.parse(fs.readFileSync('/tmp/config.json'));
+  console.log(Config);
+  var keycache = new kc.keycache(Config);
+
+  var tokenizer = new crypt({keycache: keycache});
 
   var log = new Logger({
       name: 'keyapi',
