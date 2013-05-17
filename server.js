@@ -15,7 +15,7 @@ var kc = require('./lib/keycache');
 
 
 function main () {
-  var Config = JSON.parse(fs.readFileSync('/tmp/config.json'));
+  var Config = JSON.parse(fs.readFileSync('/opt/smartdc/keyapi/config.json'));
   console.log(Config);
   var keycache = new kc.keycache(Config);
 
