@@ -42,7 +42,7 @@ function main () {
     var tok =  req.body;
 
     tokenizer.detokenize(tok, function(obj, err) {
-      if (obj) {
+      if (obj && !err) {
         res.send(200, obj)
         return next();
       } else {
