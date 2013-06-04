@@ -14,63 +14,64 @@ var crypt = require('./lib/crypt');
 var kc = require('./lib/keycache');
 
 
-function main () {
-  var Config = JSON.parse(fs.readFileSync('/opt/smartdc/keyapi/config.json'));
-  console.log(Config);
-  var keycache = new kc.keycache(Config);
+function main() {
+    var Config = JSON.parse(fs.readFileSync('/opt/smartdc/keyapi/config.json'));
+    console.log(Config);
+    var keycache = new kc.keycache(Config);
 
-  var tokenizer = new crypt({keycache: keycache});
+    var tokenizer = new crypt({keycache: keycache});
 
-  var log = new Logger({
-      name: 'keyapi',
-      level: 'debug',
-      serializers: {
-          err: Logger.stdSerializers.err,
-          req: Logger.stdSerializers.req,
-          res: restify.bunyan.serializers.response
-      }
-  });
-
-
-  var server = restify.createServer({
-      name: 'KeyAPI',
-      log: log
-  });
-  server.use(restify.bodyParser({ mapParams: false }));
-
-  server.post({path: '/detoken', name: 'detokenize'}, function(req, res, next) {
-    var tok =  req.body;
-
-    tokenizer.detokenize(tok, function(obj, err) {
-      if (obj && !err) {
-        res.send(200, obj)
-        return next();
-      } else {
-        res.send(500, JSON.stringify(err));
-        return next();
-
-      }
+    var log = new Logger({
+            name: 'keyapi',
+            level: 'debug',
+            serializers: {
+                    err: Logger.stdSerializers.err,
+                    req: Logger.stdSerializers.req,
+                    res: restify.bunyan.serializers.response
+            }
     });
-    
-  });
 
-  server.post({path: '/token', name: 'tokenize'}, function(req, res, next) {
-    var obj = req.body;
-    tokenizer.tokenize(obj, function(tok, err) {
-      if (tok) {
-        res.send(200, tok);
-        return next();
-      } else {
-        res.send(500, JSON.stringify(err));
-        return next();
-      }
+
+    var server = restify.createServer({
+            name: 'KeyAPI',
+            log: log
     });
-  });
+    server.use(restify.bodyParser({ mapParams: false }));
+
+    server.post({path: '/detoken', name: 'detokenize'},
+        function (req, res, next) {
+        var tok =    req.body;
+
+        tokenizer.detokenize(tok, function (obj, err) {
+            if (obj && !err) {
+                res.send(200, obj);
+                return next();
+            } else {
+                res.send(500, JSON.stringify(err));
+                return next();
+
+            }
+        });
+
+    });
+
+    server.post({path: '/token', name: 'tokenize'}, function (req, res, next) {
+        var obj = req.body;
+        tokenizer.tokenize(obj, function (tok, err) {
+            if (tok) {
+                res.send(200, tok);
+                return next();
+            } else {
+                res.send(500, JSON.stringify(err));
+                return next();
+            }
+        });
+    });
 
 
-  server.listen(Config.port, function () {
-      log.info({url: server.url}, '%s listening', server.name);
-  });
+    server.listen(Config.port, function () {
+            log.info({url: server.url}, '%s listening', server.name);
+    });
 }
 
 main();
