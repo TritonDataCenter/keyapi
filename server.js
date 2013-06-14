@@ -16,10 +16,6 @@ var kc = require('./lib/keycache');
 
 function main() {
     var Config = JSON.parse(fs.readFileSync('/opt/smartdc/keyapi/config.json'));
-    var keycache = new kc.keycache(Config);
-
-    var tokenizer = new crypt({keycache: keycache});
-
     var log = new Logger({
             name: 'keyapi',
             level: 'debug',
@@ -30,6 +26,8 @@ function main() {
             }
     });
 
+    var keycache = new kc.keycache(Config, log.child({'component': 'keycache'}));
+    var tokenizer = new crypt({keycache: keycache, log: log.child({'component': 'crypt'})});
 
     var server = restify.createServer({
             name: 'KeyAPI',
