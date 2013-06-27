@@ -69,6 +69,7 @@ release: all deps docs $(SMF_MANIFESTS)
 	    $(ROOT)/node_modules \
 	    $(ROOT)/package.json \
 	    $(ROOT)/smf \
+	    $(ROOT)/sapi_manifests \
 	    $(ROOT)/tools \
 	    $(TMPDIR)/root/opt/smartdc/keyapi/
 	(cd $(TMPDIR) && $(TAR) -jcf $(ROOT)/$(RELEASE_TARBALL) root site)
