@@ -48,7 +48,7 @@ TMPDIR				  := /tmp/$(STAMP)
 # Repo-specific targets
 #
 .PHONY: all
-all: $(SMF_MANIFESTS) | $(TAP) $(REPO_DEPS)
+all: $(SMF_MANIFESTS) | $(TAP) $(REPO_DEPS) sdc-scripts
 	$(NPM) rebuild
 
 $(TAP): | $(NPM_EXEC)
@@ -72,6 +72,11 @@ release: all deps docs $(SMF_MANIFESTS)
 	    $(ROOT)/sapi_manifests \
 	    $(ROOT)/tools \
 	    $(TMPDIR)/root/opt/smartdc/keyapi/
+	mkdir -p $(TMPDIR)/root/opt/smartdc/sdc-boot/scripts
+	cp $(ROOT)/sdc-boot/*.sh \
+	    $(TMPDIR)/root/opt/smartdc/sdc-boot/
+	cp $(ROOT)/deps/sdc-scripts/*.sh \
+	    $(TMPDIR)/root/opt/smartdc/sdc-boot/scripts/
 	(cd $(TMPDIR) && $(TAR) -jcf $(ROOT)/$(RELEASE_TARBALL) root site)
 	@rm -rf $(TMPDIR)
 
