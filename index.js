@@ -6,13 +6,23 @@
 
 var crypt = require('./lib/crypt');
 var kc = require('./lib/keycache');
+var assert = require('assert-plus')
+var Logger = require('bunyan');
 
-function KeyAPI(opts) {
-  assert.ok(options.log);
-  assert.ok(options.ufds);
+function KeyAPI(options) {
+  if (! options.log )
+    options.log = new Logger({
+            name: 'keyapi',
+            level: 'debug',
+            serializers: {
+                    err: Logger.stdSerializers.err,
+                    req: Logger.stdSerializers.req
+            }
+  }); 
+  //assert.ok(options.ufds);
   this.log = options.log.child({'component': 'keyapi'});
-  this.keycache = new kc.keycache(Config, this.log.child({'component': 'keycache'}));
-  this.tokenizer = new crypt({keycache: keycache, log: this.log.child({'component': 'crypt'})}); 
+  this.keycache = new kc.keycache(options, this.log.child({'component': 'keycache'}));
+  this.tokenizer = new crypt({keycache: this.keycache, log: this.log.child({'component': 'crypt'})}); 
 
 }
 module.exports = KeyAPI;
