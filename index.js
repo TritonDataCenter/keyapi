@@ -5,7 +5,7 @@
  */
 
 var crypt = require('./lib/crypt');
-var kc = require('./lib/keycache');
+var kl = require('./lib/keylist');
 var assert = require('assert-plus')
 var Logger = require('bunyan');
 
@@ -21,8 +21,8 @@ function KeyAPI(options) {
   }); 
   //assert.ok(options.ufds);
   this.log = options.log.child({'component': 'keyapi'});
-  this.keycache = new kc.keycache(options, this.log.child({'component': 'keycache'}));
-  this.tokenizer = new crypt({keycache: this.keycache, log: this.log.child({'component': 'crypt'})}); 
+  this.keylist = new kl.keylist(options, this.log.child({'component': 'keylist'}));
+  this.tokenizer = new crypt({keycache: this.keylist, log: this.log.child({'component': 'crypt'})}); 
 
 }
 
