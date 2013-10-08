@@ -13,7 +13,7 @@ function KeyAPI(options) {
   if (! options.log )
     options.log = new Logger({
             name: 'keyapi',
-            level: 'trace',
+            level: 'info',
             serializers: {
                     err: Logger.stdSerializers.err,
                     req: Logger.stdSerializers.req
@@ -29,7 +29,9 @@ function KeyAPI(options) {
 KeyAPI.prototype.detoken = function(token, cb) {
   var self = this;
   (self.tokenizer.detokenize(token, function(obj, err) {
-    cb(JSON.parse(obj), err);
+    if (obj && typeof(obj) == 'string')
+      obj = JSON.parse(obj);
+    cb(obj, err);
   }));
 };
 
