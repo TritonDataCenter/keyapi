@@ -28,11 +28,11 @@ function KeyAPI(options) {
 
 KeyAPI.prototype.detoken = function(token, cb) {
   var self = this;
-  (self.tokenizer.detokenize(token, function(obj, err) {
+  self.tokenizer.detokenize(token, function(obj, err) {
     if (obj && typeof(obj) == 'string')
       obj = JSON.parse(obj);
     cb(obj, err);
-  }));
+  });
 };
 
 KeyAPI.prototype.token = function(obj, cb) {
