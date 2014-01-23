@@ -19,7 +19,6 @@ function KeyAPI(options) {
                     req: Logger.stdSerializers.req
             }
   }); 
-  //assert.ok(options.ufds);
   this.log = options.log.child({'component': 'keyapi'});
   this.keylist = new kl.keylist(options, this.log.child({'component': 'keylist'}));
   this.tokenizer = new crypt({keycache: this.keylist, log: this.log.child({'component': 'crypt'})}); 
