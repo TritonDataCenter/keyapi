@@ -64,7 +64,7 @@ release: all deps docs $(SMF_MANIFESTS)
 	@touch $(TMPDIR)/site/.do-not-delete-me
 	cp -PR $(NODE_INSTALL) $(TMPDIR)/root/opt/smartdc/keyapi/build/node
 	cp -r $(ROOT)/lib \
-	    $(ROOT)/server.js \
+	    $(ROOT)/index.js \
 	    $(ROOT)/Makefile \
 	    $(ROOT)/node_modules \
 	    $(ROOT)/package.json \
