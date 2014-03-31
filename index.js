@@ -3,7 +3,6 @@
  *
  * Main entry-point for the Key API lib.
  *
- * Keyapi
  * Keyapi loads keyapi-specific keys from UFDS; the newest key is used for all
  * future tokens, while other keys are used to decode older tokens. Keyapi is
  * then used to generate secure tokens, or validate and decode old tokens.
