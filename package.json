@@ -6,20 +6,14 @@
   "private": true,
   "main": "index.js",
   "dependencies": {
-    "restify": "1.4.2",
-    "node-uuid": "1.3.3",
-    "filed": "0.0.5",
-    "bunyan": "0.8.0",
-    "async": "0.1.22",
-    "ldapjs": "0.6.3",
     "assert-plus":"0.1.2",
-    "sprintf": "0.1.1",
-    "vasync" : "1.3.3",
     "retry": "0.6.0",
-    "sdc-clients": "git+ssh://git@git.joyent.com:node-sdc-clients.git"
+    "sdc-clients": "git+ssh://git@git.joyent.com:node-sdc-clients.git",
+    "sdc-securetoken": "git+ssh://git@github.com:joyent/sdc-securetoken.git#73de5903fdf1e4b3f7a5d1fccfae2e33ed620b2f"
   },
   "devDependencies": {
-    "tap": "0.2"
+    "bunyan": "0.8.0",
+    "tap": "0.4"
   },
   "scripts": {
     "start": "node ./server.js"
