@@ -6,10 +6,11 @@
   "private": true,
   "main": "index.js",
   "dependencies": {
-    "assert-plus":"0.1.2",
+    "assert-plus": "0.1.2",
     "retry": "0.6.0",
     "sdc-clients": "git+ssh://git@git.joyent.com:node-sdc-clients.git",
-    "sdc-securetoken": "git+ssh://git@github.com:joyent/sdc-securetoken.git#73de5903fdf1e4b3f7a5d1fccfae2e33ed620b2f"
+    "sdc-securetoken": "git+ssh://git@github.com:joyent/sdc-securetoken.git#73de5903fdf1e4b3f7a5d1fccfae2e33ed620b2f",
+    "node-uuid": "1.4.1"
   },
   "devDependencies": {
     "bunyan": "0.8.0",

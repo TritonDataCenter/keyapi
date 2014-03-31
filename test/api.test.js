@@ -1,5 +1,9 @@
 /*
  * Copyright (c) 2014, Joyent, Inc. All rights reserved.
+ *
+ * These tests assume that they're operating with a clean database -- no entries
+ * for KEYAPI_DN. If you're not running these tests in production (don't!), then
+ * use 'sdc-ldap s' and 'sdc-ldap del' to clean out any extraneous entries.
  */
 
 var test = require('tap').test;
@@ -30,21 +34,21 @@ var testObj = {
     quux: true
 };
 
+var bunyan = new Bunyan({ name: 'test' });
+
+var ufdsOptions = {
+    url: UFDS_URL,
+    bindDN: 'cn=root',
+    bindPassword: 'secret',
+    log: bunyan
+};
+
 var ufds;
 var keyapi;
 
 
 
 test('load test keys into UFDS, initialized keyapi', function (t) {
-    var bunyan = new Bunyan({ name: 'test' });
-
-    var ufdsOptions = {
-        url: UFDS_URL,
-        bindDN: 'cn=root',
-        bindPassword: 'secret',
-        log: bunyan
-    };
-
     ufds = new UFDS(ufdsOptions);
 
     ufds.on('connect', function () {
@@ -134,10 +138,36 @@ test('clear test keys from UFDS', function (t) {
         dn = 'dn=' + keys[1].uuid + ', ' + KEYAPI_DN;
         ufds.del(dn, function (err2) {
             t.ifError(err2);
-
-            ufds.close(function () {
-                t.end();
-            });
+            t.end();
         });
     });
+});
+
+
+
+test('keyapi should save new key to UFDS if there was none', function (t) {
+    var keyapi2 = new Keyapi({ log: bunyan, ufds: ufdsOptions });
+
+    var opts = {
+        scope: 'sub',
+        filter: '(objectclass=keyapiprivkey)'
+    };
+
+    setTimeout(function () {
+        ufds.search(KEYAPI_DN, opts, function (err, entries) {
+            t.ifError(err);
+
+            var keyUuid = keyapi2.tokenizer.encryptionKey.uuid;
+            t.equal(entries[0].uuid, keyUuid);
+
+            var dn = 'dn=' + keyUuid + ', ' + KEYAPI_DN;
+            ufds.del(dn, function (err2) {
+                t.ifError(err2);
+
+                ufds.close(function () {
+                    t.end();
+                });
+            });
+        });
+    }, 1000);
 });
