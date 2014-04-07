@@ -1,9 +1,11 @@
 {
   "name": "keyapi",
   "description": "SmartDataCenter token API",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Joyent (joyent.com)",
   "private": true,
+  "engines" : { "node" : ">=0.10" },
+  "engineStrict": true,
   "main": "index.js",
   "dependencies": {
     "assert-plus": "0.1.2",
@@ -14,7 +16,7 @@
   },
   "devDependencies": {
     "bunyan": "0.8.0",
-    "tap": "0.4"
+    "tap": "0.4.8"
   },
   "scripts": {
     "start": "node ./server.js"
