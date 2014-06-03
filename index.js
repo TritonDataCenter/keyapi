@@ -80,15 +80,14 @@ KeyAPI.prototype._token = function (obj, cb) {
 
 KeyAPI.prototype.detoken = function (token, cb) {
     var self = this;
-
-    if (self.tokenizer) {
-        self._detoken(token, cb);
-        self.detoken = self._detoken;
-    } else {
-        setTimeout(function () {
+    (function poll() {
+        if (self.tokenizer) {
             self._detoken(token, cb);
-        }, 1000);
-    }
+            self.detoken = self._detoken;
+        } else {
+            setTimeout(poll, 100);
+        }
+    })();
 };
 
 
@@ -101,14 +100,14 @@ KeyAPI.prototype.detoken = function (token, cb) {
 KeyAPI.prototype.token = function (obj, cb) {
     var self = this;
 
-    if (self.tokenizer) {
-        self._token(obj, cb);
-        self.token = self._token;
-    } else {
-        setTimeout(function () {
+    (function poll() {
+        if (self.tokenizer) {
             self._token(obj, cb);
-        }, 1000);
-    }
+            self.token = self._token;
+        } else {
+            setTimeout(poll, 100);
+        }
+    })();
 };
 
 
