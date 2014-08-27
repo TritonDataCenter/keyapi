@@ -12,7 +12,7 @@
   "dependencies": {
     "assert-plus": "0.1.2",
     "retry": "0.6.0",
-    "sdc-clients": "git+ssh://git@git.joyent.com:node-sdc-clients.git",
+    "sdc-clients": "git+ssh://git@github.com:joyent/node-sdc-clients.git",
     "sdc-securetoken": "git+ssh://git@github.com:joyent/sdc-securetoken.git#8b0e1768681eb9051b5e9523b4e03cc2fd905330",
     "node-uuid": "1.4.1"
   },
