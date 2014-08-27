@@ -4,7 +4,9 @@
   "version": "1.0.1",
   "author": "Joyent (joyent.com)",
   "private": true,
-  "engines" : { "node" : ">=0.10" },
+  "engines": {
+    "node": ">=0.10"
+  },
   "engineStrict": true,
   "main": "index.js",
   "dependencies": {
@@ -20,5 +22,6 @@
   },
   "scripts": {
     "start": "node ./server.js"
-  }
+  },
+  "license": "MPL-2.0"
 }
