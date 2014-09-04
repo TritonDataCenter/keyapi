@@ -29,6 +29,6 @@ take a javascript object and encrypt it, returning a javascript object
 containing a hash, key version, keyid and data payload
 
 # detoken
-take a keyapi generated token as a javascript object (if recieved from
+take a keyapi generated token as a javascript object (if received from
 your application as a string you must convert it to javascript) and
 return the originally encrypted js object

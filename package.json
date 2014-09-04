@@ -7,6 +7,10 @@
   "engines": {
     "node": ">=0.10"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:joyent/keyapi.git"
+  },
   "engineStrict": true,
   "main": "index.js",
   "dependencies": {
