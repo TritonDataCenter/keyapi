@@ -24,8 +24,5 @@
     "bunyan": "0.8.0",
     "tap": "0.4.8"
   },
-  "scripts": {
-    "start": "node ./server.js"
-  },
   "license": "MPL-2.0"
 }
