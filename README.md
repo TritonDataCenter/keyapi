@@ -10,15 +10,15 @@
 
 # keyapi
 
-This repository is part of the Joyent SmartDataCenter project (SDC).  For 
-contribution guidelines, issues, and general documentation, visit the main
-[SDC](http://github.com/joyent/sdc) project page.
-
+This repository is part of the Joyent Triton project. See the [contribution
+guidelines](https://github.com/joyent/triton/blob/master/CONTRIBUTING.md) --
+*Triton does not use GitHub PRs* -- and general documentation at the main
+[Triton project](https://github.com/joyent/triton) page.
 
 KeyAPI is a simple library to create and unpackage opaque encrypted tokens
 for services that require user authentication
 
-KeyAPI provides a mechanism for SDC to securely pass information in and out
+KeyAPI provides a mechanism for Triton to securely pass information in and out
 of the system using tokens.
 
 # Using KeyAPI
