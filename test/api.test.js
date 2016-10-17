@@ -17,7 +17,7 @@
 var test = require('tap').test;
 var Bunyan = require('bunyan');
 var Keyapi = require('../');
-var UFDS = require('sdc-clients').UFDS;
+var UFDS = require('ufds');
 
 
 
