@@ -7,4 +7,4 @@
 
 [submodule "deps/jsstyle"]
 	path = deps/jsstyle
-	url = https://github.com/davepacheco/jsstyle.git
+	url = https://github.com/joyent/jsstyle.git
