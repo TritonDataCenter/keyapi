@@ -18,7 +18,7 @@
     "retry": "0.6.0",
     "ufds": "1.2.0",
     "sdc-securetoken": "git+https://github.com/joyent/sdc-securetoken.git#8b0e1768681eb9051b5e9523b4e03cc2fd905330",
-    "node-uuid": "1.4.1"
+    "node-uuid": "1.4.8"
   },
   "devDependencies": {
     "bunyan": "1.8.1",
