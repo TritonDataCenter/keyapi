@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (c) 2014, Joyent, Inc.
+ * Copyright 2020 Joyent, Inc.
  */
 
 /*
@@ -14,14 +14,21 @@
  * use 'sdc-ldap s' and 'sdc-ldap del' to clean out any extraneous entries.
  */
 
+var assert = require('assert-plus');
 var test = require('tap').test;
 var Bunyan = require('bunyan');
 var Keyapi = require('../');
 var UFDS = require('ufds');
 
 
+assert.string(process.env.UFDS_IP, 'UFDS_IP envvar');
+assert.string(process.env.UFDS_LDAP_ROOT_PASSWORD,
+    'UFDS_LDAP_ROOT_PASSWORD envvar');
 
-var UFDS_URL = 'ldaps://' + (process.env.UFDS_IP || '10.99.99.18');
+var UFDS_URL = 'ldaps://' + process.env.UFDS_IP;
+var UFDS_PASSWORD = process.env.UFDS_LDAP_ROOT_PASSWORD;
+
+
 var KEYAPI_DN = 'ou=keyapiprivkeys, o=smartdc';
 
 var keys = [ {
@@ -47,7 +54,7 @@ var bunyan = new Bunyan({ name: 'test' });
 var ufdsOptions = {
     url: UFDS_URL,
     bindDN: 'cn=root',
-    bindPassword: 'secret',
+    bindPassword: UFDS_PASSWORD,
     log: bunyan
 };
 

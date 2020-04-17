@@ -25,7 +25,7 @@
 #
 # Tools
 #
-TAP		:= ./node_modules/.bin/tap
+TAP_EXEC := ./node_modules/.bin/tap
 
 #
 # Files
@@ -45,18 +45,15 @@ include ./tools/mk/Makefile.defs
 # Repo-specific targets
 #
 .PHONY: all
-all: | $(TAP)
-	$(NPM) rebuild
-
-$(TAP): | $(NPM_EXEC)
+all $(TAP_EXEC):
 	$(NPM) install
 
-CLEAN_FILES += $(TAP) ./node_modules/tap
+CLEAN_FILES += ./node_modules
 
 
 .PHONY: test
-test: $(TAP)
-	TAP=1 $(TAP) test/*.test.js
+test: | $(TAP_EXEC)
+	TAP=1 $(TAP_EXEC) test/*.test.js
 
 include ./tools/mk/Makefile.deps
 include ./tools/mk/Makefile.targ
