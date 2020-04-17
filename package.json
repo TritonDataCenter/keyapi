@@ -1,7 +1,7 @@
 {
   "name": "keyapi",
   "description": "SmartDataCenter token API",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Joyent (joyent.com)",
   "private": true,
   "engines": {
@@ -14,14 +14,14 @@
   "engineStrict": true,
   "main": "index.js",
   "dependencies": {
-    "assert-plus": "0.1.2",
+    "assert-plus": "1.0.0",
     "retry": "0.6.0",
-    "ufds": "1.2.0",
+    "ufds": "1.6.1",
     "sdc-securetoken": "git+https://github.com/joyent/sdc-securetoken.git#8b0e1768681eb9051b5e9523b4e03cc2fd905330",
-    "node-uuid": "1.4.1"
+    "uuid": "~3.4.0"
   },
   "devDependencies": {
-    "bunyan": "1.8.1",
+    "bunyan": "~1.8.3",
     "tap": "0.4.8"
   },
   "license": "MPL-2.0"
